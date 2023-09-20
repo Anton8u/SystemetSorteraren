@@ -31,13 +31,16 @@ def allItems():
         #print(i,x)
     return all
 
-typeOneCatories = [Cider & blanddrycker, Sprit, Vin, Öl, Alkoholfritt]
+typeOneCategories = ["Cider & blanddrycker", "Sprit", "Vin", "Öl", "Alkoholfritt"]
 
 def generalCategories(selectedCategories):
+    filtered = []
     for i in range(0,24117):
         for category in selectedCategories:
             if fromListGetElem("categoryTypeOne", i) in selectedCategories:
-                print(fromListGetElem("productName", i), fromListGetElem("categoryTypeOne", i))
+                filtered.append(i)
+                break
+    return filtered
         
 typeTwoCategories = ["Akvavit & Kryddat brännvin", "Ale", "Anissprit", "Annan öl", "Aperitif & Bitter", "Aperitifer", "Armagnac & Brandy", "Avec", "Bitter", "Blanddryck", "Calvados", "Cider","Cider & Blanddryck", "Cognac", "Drinkar & Cocktail", "Drinkar & Cocktails", "Drycker av flera typer", "Frukt & Druvsprit","Gin & Genever", "Glögg & andra juldrycker", "Glögg och Glühwein", "Grappa & Marc", "Likör", "Ljus lager", "Mellanmörk & Mörk lager","Mousserande", "Mousserande vin", "Must", "Porter & Stout", "Punsch", "Rom & Lagrad sockerrörssprit", "Rosé", "Rosévin","Rött", "Rött vin", "Sake", "Smaksatt sprit", "Smaksatt vin & fruktvin", "Snaps", "Starkvin", "Syrlig öl", "Tequila & Mezcal","Vermouth", "Veteöl", "Vinlåda", "Vitt", "Vitt vin", "Vodka & Okryddat brännvin", "Whisky", "Öl"]
 alcoholFree = ["Cider & Blanddryck (Alkoholfri)", "Drinkar & Cocktail (Alkoholfri)", "Glögg & andra juldrycker (Alkoholfri)", "Mousserande (Alkoholfri)", "Must (Alkoholfri)", "Rosé (Alkoholfri)", "Rött (Alkoholfri)", "Snaps (Alkoholfri)", "Vitt (Alkoholfri)", "Öl (Alkoholfri)"]
@@ -56,4 +59,3 @@ def specificCategories(selectedCategories):
                 filtered.append(i)
                 break
     return filtered
-
