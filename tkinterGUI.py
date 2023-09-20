@@ -2,9 +2,10 @@ import tkinter as tk
 from tkinter import Listbox, ttk
 from alkobeast import specificCategories, generalCategories, allItems, thresholdApplyer, productNames, fromListGetElem
 import json
+import os
 
 window = tk.Tk()
-window.title("Store Item Filter")
+window.title("SystemetSorteraren")
 window.resizable(0, 0)
 
 # Create a menu bar
@@ -137,6 +138,24 @@ listbox_specific.grid(row=4, column=0, sticky=tk.W)
 for i, category in enumerate(specific_categories):
     listbox_specific.insert(tk.END, category)
 
+def select_general_category(event):
+    selected_indices = listbox_general.curselection()
+    if selected_indices:
+        selected_index = selected_indices[0]
+        category_var.set(general_categories[selected_index])
+        general_label.select()
+
+def select_specific_category(event):
+    selected_indices = listbox_specific.curselection()
+    if selected_indices:
+        selected_index = selected_indices[0]
+        category_var.set(specific_categories[selected_index])
+        specific_label.select()
+
+# Bind the <<ListboxSelect>> event to the listboxes
+listbox_general.bind("<<ListboxSelect>>", select_general_category)
+listbox_specific.bind("<<ListboxSelect>>", select_specific_category)
+
 # Create a separator
 separator = ttk.Separator(window, orient='vertical')
 separator.grid(row=0, column=1, sticky='ns')
@@ -218,6 +237,10 @@ def export_items(items):
     with open('export.txt', 'w') as f:
         for item in items:
             f.write(fromListGetElem(productNames, i) + '\n')
+
+#def export_items(items):
+#    with open('export.txt', 'w') as f:
+#        f.write('\n'.join(items))
 
 
 filter_button = tk.Button(right_frame, text="Filter", command=filter_items, width=14)
