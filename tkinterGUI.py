@@ -3,6 +3,7 @@ from tkinter import Listbox, ttk
 from alkobeast import specificCategories, generalCategories, allItems, thresholdApplyer, productNames, fromListGetElem
 import json
 import os
+import webbrowser
 
 window = tk.Tk()
 window.title("SystemetSorteraren")
@@ -17,7 +18,10 @@ options_menu = tk.Menu(menubar, tearoff=0)
 # Add commands to the menu item
 
 options_menu.add_command(label="Reset to default", command=lambda: apply_preset(4)) #preset 4 = default values
-options_menu.add_command(label="Export filtered items", command=lambda: export_items(items))
+options_menu.add_command(label="Open first 10 items in browser", command=lambda: openFilteredLinks(10))
+options_menu.add_command(label="Open first 25 items in browser", command=lambda: openFilteredLinks(25))
+options_menu.add_command(label="Open first 50 items in browser", command=lambda: openFilteredLinks(50))
+
 
 # Add the menu item to the menu bar
 menubar.add_cascade(label="Options", menu=options_menu)
@@ -35,8 +39,8 @@ presets_menu.add_separator()
 presets_menu.add_command(label="Apply Preset 2", command=lambda: apply_preset(2))
 presets_menu.add_command(label="Save Preset 2", command=lambda: save_preset(2))
 presets_menu.add_separator()
-presets_menu.add_command(label="Apply Preset 3", command=lambda: apply_preset(3))
-presets_menu.add_command(label="Save Preset 3", command=lambda: save_preset(3))
+presets_menu.add_command(label="Apply Startup Preset", command=lambda: apply_preset(3))
+presets_menu.add_command(label="Save Startup Preset", command=lambda: save_preset(3))
 
 def save_preset(preset_number):
     # Get the current state of the application
@@ -94,14 +98,12 @@ menubar.add_cascade(label="Presets", menu=presets_menu)
 def reset_to_default():
     # Set the category option to default
     category_var.set(default_category)
-
     # Reset the thresholds to default values
     for i, (min_entry, max_entry) in enumerate(threshold_entries):
         min_entry.delete(0, tk.END)
         min_entry.insert(0, default_values_min[i])
         max_entry.delete(0, tk.END)
         max_entry.insert(0, default_values_max[i])
-
 
 # Create the left side frame
 left_frame = tk.Frame(window)
@@ -189,25 +191,33 @@ for i in range(4):
     
     threshold_entries.append((min_entry, max_entry))
 
+
+
+outputType = 0 #0 = productName, #1 = link
 apply_preset(3)
+indexItems = []
 items = []
+
 # Button to trigger filtering
 def filter_items():
+    global items
+    global indexItems
+
     # Get the values from the listboxes
     
     selected_category = category_var.get()
     if selected_category == 1:  # All items
-        items = allItems()
+        indexItems = allItems()
 
     elif selected_category == 2:  # General categories
         selected_general_categories = listbox_general.curselection()
         selected_general_categories = [listbox_general.get(index) for index in selected_general_categories]
-        items = generalCategories(selected_general_categories)
+        indexItems = generalCategories(selected_general_categories)
 
     elif selected_category == 3:  # Specific categories
         selected_specific_categories = listbox_specific.curselection()
         selected_specific_categories = [listbox_specific.get(index) for index in selected_specific_categories]
-        items = specificCategories(selected_specific_categories)
+        indexItems = specificCategories(selected_specific_categories)
     
     # Create a list to store the retrieved values
     threshold_values = []
@@ -219,13 +229,15 @@ def filter_items():
             threshold_values.append(float(max_entry.get()))
         except:
             return
+
         #(alcoholPrecentageMin, alcoholPrecentageMax, apkMin, apkMax, volumeMin, volumeMax, priceMin, priceMax)
         #(threshold_values[0], threshold_values[1], threshold_values[2], threshold_values[3], threshold_values[4], threshold_values[5], threshold_values[6], threshold_values[7])
+    indexItems = thresholdApplyer(indexItems, threshold_values[0], threshold_values[1], threshold_values[2], threshold_values[3], threshold_values[4], threshold_values[5], threshold_values[6], threshold_values[7])
 
-    items = productNames(thresholdApplyer(items, threshold_values[0], threshold_values[1], threshold_values[2], threshold_values[3], threshold_values[4], threshold_values[5], threshold_values[6], threshold_values[7]))
-    resultString = str(len(items)) + " Matching items..."
-    
-    items = [resultString, "---------------------------------"] + items
+    result = ["Matching items...","---------------------------------"]
+    for i in indexItems:
+        result.append(fromListGetElem("productName", i))
+    items = result
 
     # Display the filtered items in the listbox
     
@@ -233,15 +245,18 @@ def filter_items():
     for item in items:
         listbox_filtered.insert(tk.END, item)
 
-def export_items(items):
-    with open('export.txt', 'w') as f:
-        for item in items:
-            f.write(fromListGetElem(productNames, i) + '\n')
-
-#def export_items(items):
-#    with open('export.txt', 'w') as f:
-#        f.write('\n'.join(items))
-
+def openFilteredLinks(amountOfUrls):
+    global indexItems
+    counter = 0
+    try:
+        for i in indexItems:
+            url = "https://www.systembolaget.se/"+str(fromListGetElem("productId", i))+"/"
+            webbrowser.open_new(url)
+            counter += 1
+            if counter == amountOfUrls:
+                return
+                
+    finally: pass
 
 filter_button = tk.Button(right_frame, text="Filter", command=filter_items, width=14)
 filter_button.grid(row=1, column=0, pady=10)
