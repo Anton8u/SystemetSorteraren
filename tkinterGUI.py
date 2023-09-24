@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import Listbox, ttk
-from alkobeast import specificCategories, generalCategories, allItems, thresholdApplyer, productNames, fromListGetElem
+from alkobeast import specificCategories, generalCategories, allItems, thresholdApplyer, productNames, getIndexParameter
 import json
 import os
 import webbrowser
@@ -239,7 +239,7 @@ def filter_items():
 
     result = ["Matching items...","---------------------------------"]
     for i in indexItems:
-        result.append(fromListGetElem("productName", i))
+        result.append(getIndexParameter("productName", i))
     items = result
 
     # Display the filtered items in the listbox
@@ -253,7 +253,7 @@ def openFilteredLinks(amountOfUrls):
     counter = 0
     try:
         for i in indexItems:
-            url = "https://www.systembolaget.se/"+str(fromListGetElem("productId", i))+"/"
+            url = "https://www.systembolaget.se/"+getIndexParameter("productNumber", i)+"/"
             webbrowser.open_new(url)
             counter += 1
             if counter == amountOfUrls:
