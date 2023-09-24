@@ -18,9 +18,10 @@ options_menu = tk.Menu(menubar, tearoff=0)
 # Add commands to the menu item
 
 options_menu.add_command(label="Reset to default", command=lambda: apply_preset(4)) #preset 4 = default values
+options_menu.add_command(label="Open first 5 items in browser", command=lambda: openFilteredLinks(5))
 options_menu.add_command(label="Open first 10 items in browser", command=lambda: openFilteredLinks(10))
 options_menu.add_command(label="Open first 25 items in browser", command=lambda: openFilteredLinks(25))
-options_menu.add_command(label="Open first 50 items in browser", command=lambda: openFilteredLinks(50))
+
 
 
 # Add the menu item to the menu bar
@@ -63,7 +64,9 @@ def save_preset(preset_number):
         else:
             lines[preset_number - 1] = state_json + '\n'
         f.seek(0)
+        f.truncate()  # Clear the file content
         f.writelines(lines)
+
 
 def apply_preset(preset_number):
     print("apply_preset()")

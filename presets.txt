@@ -1,4 +1,4 @@
 {"selected_category": 1, "selected_general_categories": [], "selected_specific_categories": [], "threshold_values": [0.0, 100.0, 0.0, 300.0, 0.0, 10000.0, 0.0, 10000.0]}
-{"selected_category": 1, "selected_general_categories": [], "selected_specific_categories": [0, 2, 4], "threshold_values": [1.0, 1.0, 1.0, 10.0, 0.0, 100030.0, 0.02, 100300.0]}
-{"selected_category": 2, "selected_general_categories": [4], "selected_specific_categories": [], "threshold_values": [0.0, 100.0, 0.0, 300.0, 0.0, 10000.0, 0.0, 12.0]}
+{"selected_category": 1, "selected_general_categories": [], "selected_specific_categories": [], "threshold_values": [0.0, 100.0, 0.0, 300.0, 0.0, 10000.0, 0.0, 10000.0]}
+{"selected_category": 1, "selected_general_categories": [], "selected_specific_categories": [], "threshold_values": [0.0, 100.0, 0.0, 300.0, 0.0, 10000.0, 0.0, 10000.0]}
 {"selected_category": 1, "selected_general_categories": [], "selected_specific_categories": [], "threshold_values": [0.0, 100.0, 0.0, 300.0, 0.0, 10000.0, 0.0, 10000.0]}
