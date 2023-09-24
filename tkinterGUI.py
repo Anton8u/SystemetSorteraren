@@ -9,6 +9,7 @@ window = tk.Tk()
 window.title("SystemetSorteraren")
 window.resizable(0, 0)
 
+window.iconbitmap("icon.ico")
 # Create a menu bar
 menubar = tk.Menu(window)
 
@@ -45,7 +46,6 @@ presets_menu.add_command(label="Save Startup Preset", command=lambda: save_prese
 
 def save_preset(preset_number):
     # Get the current state of the application
-    print("save_preset()")
     state = {
         'selected_category': category_var.get(),
         'selected_general_categories': listbox_general.curselection(),
@@ -69,7 +69,6 @@ def save_preset(preset_number):
 
 
 def apply_preset(preset_number):
-    print("apply_preset()")
     # Open the presets file and load the state
     with open('presets.txt', 'r') as f:
         lines = f.readlines()
