@@ -9,7 +9,7 @@ window = tk.Tk()
 window.title("SystemetSorteraren")
 window.resizable(0, 0)
 
-window.iconbitmap("icon.ico")
+window.iconbitmap("C:/Users/Anton/Documents/hemmaprojekt/alkobeast/icon.ico")
 # Create a menu bar
 menubar = tk.Menu(window)
 
@@ -57,7 +57,7 @@ def save_preset(preset_number):
     state_json = json.dumps(state)
 
     # Open the presets file and save the state
-    with open('presets.txt', 'r+') as f:
+    with open('C:/Users/Anton/Documents/hemmaprojekt/alkobeast/presets.txt', 'r+') as f:
         lines = f.readlines()
         if len(lines) < preset_number:
             lines.append(state_json + '\n')
@@ -70,7 +70,7 @@ def save_preset(preset_number):
 
 def apply_preset(preset_number):
     # Open the presets file and load the state
-    with open('presets.txt', 'r') as f:
+    with open('C:/Users/Anton/Documents/hemmaprojekt/alkobeast/presets.txt', 'r') as f:
         lines = f.readlines()
         if len(lines) < preset_number:
             print(f'Preset {preset_number} does not exist')
@@ -239,7 +239,9 @@ def filter_items():
     result = ["Matching items...","---------------------------------"]
     for i in indexItems:
         result.append(getIndexParameter("productName", i))
+    
     items = result
+    print(len(items))
 
     # Display the filtered items in the listbox
     
