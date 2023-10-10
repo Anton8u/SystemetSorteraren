@@ -6,7 +6,7 @@ class Product:
         self.productNumber = productNumber
         self.categoryLevel1 = categoryLevel1
         self.categoryLevel2 = categoryLevel2
-        self.apk = apk
+        self.apk = apk*100
         self.price = price
         self.productNameBold = productNameBold
         self.productNameThin = productNameThin
