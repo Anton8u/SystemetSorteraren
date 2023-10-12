@@ -58,7 +58,7 @@ class ProductDatabase:
 
 
 # Usage
-db = ProductDatabase('products.json')
+db = ProductDatabase('C:/Users/Anton/Documents/hemmaprojekt/alkobeast/products.json')
 
 def getIndexParameter(parameter, index):
     return db.getIndexParameter(index, parameter)
