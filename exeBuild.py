@@ -7,7 +7,7 @@ build_options = {
     'include_files': ['presets.txt', 'products.json']
 }
 executables = [
-    Executable('tkinterGUI.py', base=None)
+    Executable('tkinterGUI.py', base="Win32GUI")
 ]
 setup(
     name='SystemetSorteraren',
