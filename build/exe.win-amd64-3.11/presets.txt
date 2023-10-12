@@ -1,0 +1,4 @@
+{"selected_category": 1, "selected_general_categories": [], "selected_specific_categories": [], "threshold_values": [0.0, 100.0, 0.0, 300.0, 0.0, 10000.0, 0.0, 10000.0]}
+{"selected_category": 1, "selected_general_categories": [], "selected_specific_categories": [], "threshold_values": [0.0, 100.0, 0.0, 300.0, 0.0, 10000.0, 0.0, 10000.0]}
+{"selected_category": 1, "selected_general_categories": [], "selected_specific_categories": [], "threshold_values": [0.0, 100.0, 0.0, 300.0, 0.0, 10000.0, 0.0, 10000.0]}
+{"selected_category": 1, "selected_general_categories": [], "selected_specific_categories": [], "threshold_values": [0.0, 100.0, 0.0, 300.0, 0.0, 10000.0, 0.0, 10000.0]}
