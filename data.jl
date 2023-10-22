@@ -1,7 +1,7 @@
 using JSON
 
 # Specify the path to your JSON file
-json_file_path = "products.json"
+json_file_path = "products_reformated.json"
 
 # Read and parse the JSON data
 data = JSON.parsefile(json_file_path)
@@ -12,7 +12,7 @@ end
 
 function allItems()
     all = []
-    for i in 1:24118
+    for i in 1:24117
         push!(all, i)
     end
     return all
@@ -48,11 +48,44 @@ function specificCategories(selectedCategories)
     return filtered
 end
 
-function criteriaThresholdFilter(unfiltered, criteria, lowTreshhold, highThreshhold)
-    filtered = []
-    for i in unfiltered
+function criteriaThresholdFilter(list, criteria, lowThreshold, highThreshold)
+    filtered = Int[]
+
+    if criteria == "apk"
+        startValue = 1
+        if highThreshold < 72
+            startValue = 5000
+        end
+        if highThreshold < 56
+            startValue = 10000
+        end
+        if highThreshold < 41
+            startValue = 15000
+        end
+        if highThreshold < 25
+            startValue = 20000
+        end
+
+        for i in list
+            if i < startValue
+                continue
+            end
+
+            apk = getIndexParameter(criteria, i)
+            if apk <= highThreshold
+                if apk < lowThreshold
+                    break
+                end
+                push!(filtered, i)
+            end
+        end
+        return filtered
+    end
+    
+    
+    for i in list
         x = getIndexParameter(criteria, i)
-        if x >= lowTreshhold && x <= highThreshhold
+        if x >= lowThreshold && x <= highThreshold
             push!(filtered, i)
         end
     end
@@ -60,25 +93,11 @@ function criteriaThresholdFilter(unfiltered, criteria, lowTreshhold, highThreshh
 end
 
 function thresholdApplyer(indexList, alcoholPrecentageMin, alcoholPrecentageMax, apkMin, apkMax, volumeMin, volumeMax, priceMin, priceMax)
-    indexList = criteriaThresholdFilter(indexList, "alcoholPrecentage", alcoholPrecentageMin, alcoholPrecentageMax)
     indexList = criteriaThresholdFilter(indexList, "apk", apkMin, apkMax)
+    indexList = criteriaThresholdFilter(indexList, "alcoholPrecentage", alcoholPrecentageMin, alcoholPrecentageMax)
     indexList = criteriaThresholdFilter(indexList, "volume", volumeMin, volumeMax)
     indexList = criteriaThresholdFilter(indexList, "price", priceMin, priceMax)
     return indexList
 end
 
-function productNames(indexList)
-    names = String[]
-    for i in indexList
-        productNameThin = getIndexParameter("productNameThin", i)
-        if !isnothing(productNameThin)
-            push!(names, (getIndexParameter("productNameBold", i) * " " * productNameThin))
-        else
-            push!(names, (getIndexParameter("productNameBold", i)))
-        end
-    end
-    return names
-end
 
-
-print(productNames(generalCategories(["Alkoholfritt"])))
