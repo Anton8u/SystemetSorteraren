@@ -30,7 +30,6 @@ class ProductDatabase:
                 ))
 
 
-
     def getIndexParameter(self, index, parameter):
         if parameter == "price": return self.products[index].price
         elif parameter == "productNumber": return self.products[index].productNumber
