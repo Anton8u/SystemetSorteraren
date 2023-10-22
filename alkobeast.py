@@ -1,6 +1,61 @@
 from data import getIndexParameter
+from numba import jit
 
-listOfLists = ["productName", "alcoholPrecentage", "volume", "price","categoryTypeOne", "categoryTypeTwo", "categoryTypeThree", "accessibility", "apk"]
+productName = []
+alcoholPrecentage = []
+volume = []
+price = []
+categoryTypeOne = []
+categoryTypeTwo = []
+categoryTypeThree = []
+accessibility = []
+apk = []
+
+for i in range(0,24117):
+    productName.append(getIndexParameter("productName", i))
+    alcoholPrecentage.append(getIndexParameter("alcoholPrecentage", i))
+    volume.append(getIndexParameter("volume", i))
+    price.append(getIndexParameter("price", i))
+    categoryTypeOne.append(getIndexParameter("categoryTypeOne", i))
+    categoryTypeTwo.append(getIndexParameter("categoryTypeTwo", i))
+    accessibility.append(getIndexParameter("accessibility", i))
+    apk.append(getIndexParameter("apk", i))
+    
+
+listOfLists = ["productName", "alcoholPrecentage", "volume", "price","categoryTypeOne", "categoryTypeTwo", "accessibility", "apk"]
+
+print(productName[24116])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def criteriaThresholdFilter(unfiltered, criteria, lowTreshhold, highThreshhold):
     filtered = []

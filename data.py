@@ -1,25 +1,14 @@
 import json
 
 class Product:
-    def __init__(self, productId, productNumber, categoryLevel1, categoryLevel2, apk, price, productNameBold, productNameThin, isTemporaryOutOfStock):
+    def __init__(self, productId, categoryLevel1, categoryLevel2, apk, price, productName, isTemporaryOutOfStock):
         self.productId = productId
-        self.productNumber = productNumber
         self.categoryLevel1 = categoryLevel1
         self.categoryLevel2 = categoryLevel2
-        self.apk = apk*100
+        self.apk = apk
         self.price = price
-        self.productNameBold = productNameBold
-        self.productNameThin = productNameThin
+        self.productName = productName
         self.isTemporaryOutOfStock = isTemporaryOutOfStock
-
-
-        self.productName = self.createProductName()
-
-    def createProductName(self):
-        if self.productNameThin is not None:
-            return self.productNameBold + " " + self.productNameThin
-        else:
-            return self.productNameBold
 
 class ProductDatabase:
     def __init__(self, json_file):
@@ -31,14 +20,12 @@ class ProductDatabase:
             data = json.load(f)
             for product in data:
                 self.products.append(Product(
-                    product.get('productId', None),
                     product.get('productNumber', None),
                     product.get('categoryLevel1', None),
                     product.get('categoryLevel2', None),
                     product.get('apk', None),
                     product.get('price', None),
-                    product.get('productNameBold', None),
-                    product.get('productNameThin', None),
+                    product.get('productName', None),
                     product.get('isTemporaryOutOfStock', None)
                 ))
 
@@ -58,7 +45,7 @@ class ProductDatabase:
 
 
 # Usage
-db = ProductDatabase('products.json')
+db = ProductDatabase('products_reformated.json')
 
 def getIndexParameter(parameter, index):
     return db.getIndexParameter(index, parameter)
