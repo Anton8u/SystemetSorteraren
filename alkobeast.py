@@ -1,4 +1,3 @@
-from data import getIndexParameter
 
 listOfLists = ["productName", "alcoholPrecentage", "volume", "price","categoryTypeOne", "categoryTypeTwo", "categoryTypeThree", "accessibility", "apk"]
 
